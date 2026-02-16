@@ -6,7 +6,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
@@ -22,16 +21,16 @@ text-align:center;
 }
 
 .logo{
-font-size:30px;
+font-size:32px;
 font-weight:900;
 letter-spacing:2px;
 color:#FF7A00;
 }
 
-/* HERO SLIDER */
+/* HERO */
 .hero{
 position:relative;
-height:50vh;
+height:55vh;
 overflow:hidden;
 display:flex;
 align-items:center;
@@ -57,21 +56,19 @@ opacity:1;
 .hero-overlay{
 position:relative;
 background:rgba(0,0,0,0.65);
-padding:25px 30px;
+padding:30px;
 border-radius:12px;
 z-index:2;
 }
 
 .hero-overlay h3{
-font-size:32px;
+font-size:34px;
 font-weight:800;
 margin-bottom:10px;
 }
 
 .hero-overlay p{
 font-size:18px;
-font-weight:500;
-letter-spacing:1px;
 }
 
 /* CATEGORY */
@@ -88,10 +85,9 @@ padding:10px 16px;
 margin:6px;
 border-radius:25px;
 cursor:pointer;
-font-size:14px;
 }
 
-/* PRODUCTS GRID */
+/* PRODUCTS */
 .products{
 display:grid;
 grid-template-columns:1fr;
@@ -99,7 +95,6 @@ gap:15px;
 padding:15px;
 }
 
-/* CARD */
 .card{
 background:white;
 padding:15px;
@@ -115,7 +110,7 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* PRODUCT SLIDER */
+/* PRODUCT IMAGE SLIDER */
 .product-slider{
 position:relative;
 height:200px;
@@ -166,7 +161,6 @@ background:#0B3C5D;
 color:white;
 text-align:center;
 padding:15px;
-font-size:14px;
 }
 
 .whatsapp{
@@ -180,31 +174,13 @@ border-radius:50%;
 text-decoration:none;
 }
 
-/* Desktop */
 @media(min-width:768px){
-
-.logo{
-font-size:36px;
+.logo{font-size:38px;}
+.hero{height:65vh;}
+.hero-overlay h3{font-size:48px;}
+.hero-overlay p{font-size:22px;}
+.products{grid-template-columns:repeat(2,1fr);}
 }
-
-.hero{
-height:65vh;
-}
-
-.hero-overlay h3{
-font-size:46px;
-}
-
-.hero-overlay p{
-font-size:22px;
-}
-
-.products{
-grid-template-columns:repeat(2,1fr);
-}
-
-}
-
 </style>
 </head>
 
@@ -215,7 +191,6 @@ grid-template-columns:repeat(2,1fr);
 </header>
 
 <section class="hero">
-
 <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f')"></div>
 <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1506368249639-73a05d6f6488')"></div>
 <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb')"></div>
@@ -224,19 +199,14 @@ grid-template-columns:repeat(2,1fr);
 <h3>Premium Multi Category Store</h3>
 <p>Kitchen • Toys • Beauty • Car Tools</p>
 </div>
-
 </section>
 
-<!-- CATEGORY -->
 <div class="category-bar">
 <button onclick="filterCategory('all')">All</button>
 <button onclick="filterCategory('kitchen')">Kitchen</button>
 <button onclick="filterCategory('toys')">Toys</button>
-<button onclick="filterCategory('beauty')">Beauty</button>
-<button onclick="filterCategory('car')">Car Tools</button>
 </div>
 
-<!-- PRODUCTS (same as before) -->
 <div class="products">
 
 <div class="card kitchen">
@@ -264,6 +234,50 @@ grid-template-columns:repeat(2,1fr);
 <footer>
 📞 9601299855 | © 2026 VEDHAK
 </footer>
+
+<script>
+
+/* HERO SLIDER */
+var heroSlides=document.querySelectorAll(".hero-slide");
+var heroIndex=0;
+setInterval(function(){
+heroSlides[heroIndex].classList.remove("active");
+heroIndex=(heroIndex+1)%heroSlides.length;
+heroSlides[heroIndex].classList.add("active");
+},3000);
+
+/* PRODUCT SLIDER */
+document.querySelectorAll(".product-slider").forEach(function(slider){
+var images=slider.querySelectorAll("img");
+var index=0;
+setInterval(function(){
+images[index].classList.remove("active");
+index=(index+1)%images.length;
+images[index].classList.add("active");
+},3000);
+});
+
+/* SCROLL ANIMATION */
+window.addEventListener("scroll",function(){
+document.querySelectorAll(".card").forEach(function(card){
+if(card.getBoundingClientRect().top < window.innerHeight-100){
+card.classList.add("show");
+}
+});
+});
+
+/* CATEGORY FILTER */
+function filterCategory(category){
+document.querySelectorAll(".card").forEach(function(card){
+if(category==="all"||card.classList.contains(category)){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+});
+}
+
+</script>
 
 </body>
 </html>
