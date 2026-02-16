@@ -13,6 +13,7 @@ font-family:'Poppins',sans-serif;
 background:#f4f6f9;
 }
 
+/* HEADER */
 header{
 background:#0B3C5D;
 color:white;
@@ -26,9 +27,11 @@ font-weight:800;
 color:#FF7A00;
 }
 
+/* HERO SLIDER */
 .hero{
-background:url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f') no-repeat center/cover;
-height:40vh;
+position:relative;
+height:45vh;
+overflow:hidden;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -36,12 +39,29 @@ color:white;
 text-align:center;
 }
 
+.hero-slide{
+position:absolute;
+width:100%;
+height:100%;
+background-size:cover;
+background-position:center;
+opacity:0;
+transition:opacity 1s ease-in-out;
+}
+
+.hero-slide.active{
+opacity:1;
+}
+
 .hero-overlay{
+position:relative;
 background:rgba(0,0,0,0.6);
 padding:15px;
 border-radius:10px;
+z-index:2;
 }
 
+/* CATEGORY */
 .category-bar{
 text-align:center;
 padding:15px;
@@ -58,7 +78,7 @@ cursor:pointer;
 font-size:13px;
 }
 
-/* PRODUCT GRID */
+/* PRODUCTS GRID */
 .products{
 display:grid;
 grid-template-columns:1fr;
@@ -66,7 +86,7 @@ gap:15px;
 padding:15px;
 }
 
-/* SLIDE ANIMATION BASE */
+/* CARD */
 .card{
 background:white;
 padding:15px;
@@ -82,9 +102,25 @@ opacity:1;
 transform:translateY(0);
 }
 
-.card img{
+/* PRODUCT SLIDER */
+.product-slider{
+position:relative;
+height:200px;
+overflow:hidden;
+}
+
+.product-slider img{
+position:absolute;
 width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transition:opacity 1s ease-in-out;
 border-radius:8px;
+}
+
+.product-slider img.active{
+opacity:1;
 }
 
 .price{
@@ -131,7 +167,6 @@ border-radius:50%;
 text-decoration:none;
 }
 
-/* Desktop */
 @media(min-width:768px){
 .products{
 grid-template-columns:repeat(2,1fr);
@@ -150,14 +185,21 @@ height:60vh;
 <div class="logo">VEDHAK</div>
 </header>
 
+<!-- HERO SLIDER -->
 <section class="hero">
+
+<div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f')"></div>
+<div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1506368249639-73a05d6f6488')"></div>
+<div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb')"></div>
+
 <div class="hero-overlay">
 <h3>Premium Multi Category Store</h3>
 <p>Kitchen • Toys • Beauty • Car Tools</p>
 </div>
+
 </section>
 
-<!-- CATEGORY FILTER -->
+<!-- CATEGORY -->
 <div class="category-bar">
 <button onclick="filterCategory('all')">All</button>
 <button onclick="filterCategory('kitchen')">Kitchen</button>
@@ -170,35 +212,23 @@ height:60vh;
 <div class="products">
 
 <div class="card kitchen">
-<img src="https://images.unsplash.com/photo-1583778176476-4a8b02f4c44d">
+<div class="product-slider">
+<img src="https://images.unsplash.com/photo-1583778176476-4a8b02f4c44d" class="active">
+<img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36">
+</div>
 <h4>Ceramic Spoon</h4>
 <div class="price">₹199</div>
-Quantity:
 <input type="number" id="q1" value="0" min="0">
 </div>
 
 <div class="card toys">
-<img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30">
+<div class="product-slider">
+<img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30" class="active">
+<img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+</div>
 <h4>Toy Car</h4>
 <div class="price">₹249</div>
-Quantity:
 <input type="number" id="q2" value="0" min="0">
-</div>
-
-<div class="card beauty">
-<img src="https://images.unsplash.com/photo-1588776814546-ec7e5b37c6d3">
-<h4>Beauty Cream</h4>
-<div class="price">₹299</div>
-Quantity:
-<input type="number" id="q3" value="0" min="0">
-</div>
-
-<div class="card car">
-<img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
-<h4>Car Cleaning Kit</h4>
-<div class="price">₹499</div>
-Quantity:
-<input type="number" id="q4" value="0" min="0">
 </div>
 
 </div>
@@ -211,7 +241,6 @@ Quantity:
 <textarea id="address" placeholder="Full Address"></textarea>
 
 <button class="btn" onclick="sendOrder()">Place Order on WhatsApp</button>
-
 <br>
 <a class="btn" href="upi://pay?pa=devyatkalathiya-1@okhdfcbank&pn=VEDHAK&cu=INR">Pay via UPI</a>
 </div>
@@ -223,6 +252,27 @@ Quantity:
 <a href="https://wa.me/919601299855" class="whatsapp" target="_blank">💬</a>
 
 <script>
+
+/* HERO AUTO SLIDER */
+var heroSlides=document.querySelectorAll(".hero-slide");
+var heroIndex=0;
+setInterval(function(){
+heroSlides[heroIndex].classList.remove("active");
+heroIndex=(heroIndex+1)%heroSlides.length;
+heroSlides[heroIndex].classList.add("active");
+},3000);
+
+/* PRODUCT IMAGE AUTO SLIDER */
+var sliders=document.querySelectorAll(".product-slider");
+sliders.forEach(function(slider){
+var images=slider.querySelectorAll("img");
+var index=0;
+setInterval(function(){
+images[index].classList.remove("active");
+index=(index+1)%images.length;
+images[index].classList.add("active");
+},3000);
+});
 
 /* CATEGORY FILTER */
 function filterCategory(category){
@@ -240,67 +290,39 @@ product.style.display="none";
 });
 }
 
-/* WHATSAPP ORDER SYSTEM */
-function sendOrder(){
-
-var q1=parseInt(document.getElementById("q1").value)||0;
-var q2=parseInt(document.getElementById("q2").value)||0;
-var q3=parseInt(document.getElementById("q3").value)||0;
-var q4=parseInt(document.getElementById("q4").value)||0;
-
-var name=document.getElementById("name").value;
-var phone=document.getElementById("phone").value;
-var address=document.getElementById("address").value;
-
-var total=(q1*199)+(q2*249)+(q3*299)+(q4*499);
-
-if(total<=0){
-alert("Please select at least one product");
-return;
-}
-
-if(name==""||phone==""||address==""){
-alert("Please fill all details");
-return;
-}
-
-var message="🛒 VEDHAK Order\n\n";
-
-if(q1>0){
-message+="Ceramic Spoon x "+q1+" = ₹"+(q1*199)+"\nImage: https://images.unsplash.com/photo-1583778176476-4a8b02f4c44d\n\n";
-}
-if(q2>0){
-message+="Toy Car x "+q2+" = ₹"+(q2*249)+"\nImage: https://images.unsplash.com/photo-1596464716127-f2a82984de30\n\n";
-}
-if(q3>0){
-message+="Beauty Cream x "+q3+" = ₹"+(q3*299)+"\nImage: https://images.unsplash.com/photo-1588776814546-ec7e5b37c6d3\n\n";
-}
-if(q4>0){
-message+="Car Cleaning Kit x "+q4+" = ₹"+(q4*499)+"\nImage: https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2\n\n";
-}
-
-message+="Total: ₹"+total+
-"\n\nCustomer Name: "+name+
-"\nMobile: "+phone+
-"\nAddress: "+address;
-
-var url="https://wa.me/919601299855?text="+encodeURIComponent(message);
-
-window.open(url,"_blank");
-
-}
-
-/* SLIDE ANIMATION */
-window.addEventListener("scroll", function(){
+/* SCROLL ANIMATION */
+window.addEventListener("scroll",function(){
 var cards=document.querySelectorAll(".card");
 cards.forEach(function(card){
 var position=card.getBoundingClientRect().top;
-var screenHeight=window.innerHeight;
-if(position<screenHeight-100){
+if(position<window.innerHeight-100){
 card.classList.add("show");
 }
 });
 });
+
+/* WHATSAPP ORDER */
+function sendOrder(){
+var q1=parseInt(document.getElementById("q1").value)||0;
+var q2=parseInt(document.getElementById("q2").value)||0;
+var name=document.getElementById("name").value;
+var phone=document.getElementById("phone").value;
+var address=document.getElementById("address").value;
+
+var total=(q1*199)+(q2*249);
+
+if(total<=0||name==""||phone==""||address==""){
+alert("Please fill details and select product");
+return;
+}
+
+var message="🛒 VEDHAK Order\n\n";
+if(q1>0){message+="Ceramic Spoon x "+q1+" = ₹"+(q1*199)+"\n\n";}
+if(q2>0){message+="Toy Car x "+q2+" = ₹"+(q2*249)+"\n\n";}
+message+="Total: ₹"+total+"\n\nName: "+name+"\nMobile: "+phone+"\nAddress: "+address;
+
+window.open("https://wa.me/919601299855?text="+encodeURIComponent(message),"_blank");
+}
 
 </script>
 
