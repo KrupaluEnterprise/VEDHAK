@@ -16,11 +16,42 @@ padding:20px;
 text-align:center;
 }
 .hero{
-background:#FF7A00;
-color:white;
-padding:60px 20px;
-text-align:center;
+  background-image: url("https://images.unsplash.com/photo-1556911220-e15b29be8c8f");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
 }
+
+.hero::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+.hero-content{
+  position:relative;
+  color:white;
+  text-align:center;
+  z-index:2;
+}
+
+.hero-content h1{
+  font-size:48px;
+  margin-bottom:15px;
+}
+
+.hero-content p{
+  font-size:20px;
+}
+
 .btn{
 background:#0B3C5D;
 color:white;
@@ -64,10 +95,13 @@ padding:15px;
 </header>
 
 <section class="hero">
-<h2>Upgrade Your Kitchen Experience</h2>
-<p>High Quality • Durable • Affordable</p>
-<a href="#products" class="btn">Explore Products</a>
+  <div class="hero-content">
+    <h1>Transform Your Kitchen with VEDHAK</h1>
+    <p>Premium Home & Kitchen Products for Modern Living</p>
+    <a href="#products" class="btn">Shop Now</a>
+  </div>
 </section>
+
 
 <section class="section">
 <h2>About VEDHAK</h2>
@@ -104,3 +138,4 @@ padding:15px;
 
 </body>
 </html>
+
