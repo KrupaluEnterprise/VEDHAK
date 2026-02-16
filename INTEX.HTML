@@ -56,21 +56,6 @@ font-size:45px;
 margin-bottom:15px;
 }
 
-.btn{
-background:#0B3C5D;
-color:white;
-padding:14px 30px;
-text-decoration:none;
-border-radius:30px;
-display:inline-block;
-margin-top:20px;
-transition:0.3s;
-}
-
-.btn:hover{
-background:black;
-}
-
 .section{
 padding:80px 20px;
 text-align:center;
@@ -85,15 +70,37 @@ flex-wrap:wrap;
 
 .card{
 background:white;
-padding:25px;
+padding:20px;
 width:260px;
 border-radius:15px;
 box-shadow:0 8px 20px rgba(0,0,0,0.08);
 transition:0.3s;
 }
 
-.card:hover{
-transform:translateY(-10px);
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+.price{
+font-weight:bold;
+margin:10px 0;
+color:#0B3C5D;
+}
+
+.btn{
+background:#0B3C5D;
+color:white;
+padding:10px 20px;
+text-decoration:none;
+border-radius:25px;
+display:inline-block;
+margin:5px 5px 0 5px;
+font-size:14px;
+}
+
+.btn:hover{
+background:black;
 }
 
 footer{
@@ -104,14 +111,13 @@ padding:20px;
 margin-top:40px;
 }
 
-/* WhatsApp Floating Button */
 .whatsapp{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
 color:white;
-font-size:28px;
+font-size:24px;
 padding:15px 18px;
 border-radius:50%;
 text-decoration:none;
@@ -119,11 +125,11 @@ box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
 @media(max-width:768px){
-.hero h1{
-font-size:28px;
-}
 header{
 flex-direction:column;
+}
+.hero h1{
+font-size:28px;
 }
 }
 
@@ -136,9 +142,8 @@ flex-direction:column;
 <div class="logo">VEDHAK</div>
 <nav>
 <a href="#">Home</a>
-<a href="#">Products</a>
-<a href="#">About</a>
-<a href="#">Contact</a>
+<a href="#products">Products</a>
+<a href="#contact">Contact</a>
 </nav>
 </header>
 
@@ -146,40 +151,46 @@ flex-direction:column;
 <div class="hero-overlay">
 <h1>Transform Your Kitchen with VEDHAK</h1>
 <p>Premium Home & Kitchen Products for Modern Living</p>
-<a href="#products" class="btn">Shop Now</a>
 </div>
 </section>
 
 <section class="section" id="products">
 <h2>Our Products</h2>
+
 <div class="products">
+
 <div class="card">
-<h3>Kitchen Tools</h3>
-<p>Durable and modern cooking essentials.</p>
+<img src="https://images.unsplash.com/photo-1583778176476-4a8b02f4c44d" alt="">
+<h3>Ceramic Spoon</h3>
+<p>Premium quality serving spoon.</p>
+<div class="price">₹199</div>
+<a class="btn" href="https://wa.me/919601299855?text=I want to order Ceramic Spoon - ₹199" target="_blank">Order on WhatsApp</a>
+<a class="btn" href="upi://pay?pa=devyatkalathiya-1@okhdfcbank&pn=VEDHAK&am=199&cu=INR">Pay Now</a>
 </div>
+
 <div class="card">
-<h3>Home Utility</h3>
-<p>Smart solutions for everyday living.</p>
+<img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" alt="">
+<h3>Kitchen Bowl</h3>
+<p>Durable multi-purpose bowl.</p>
+<div class="price">₹299</div>
+<a class="btn" href="https://wa.me/919601299855?text=I want to order Kitchen Bowl - ₹299" target="_blank">Order on WhatsApp</a>
+<a class="btn" href="upi://pay?pa=devyatkalathiya-1@okhdfcbank&pn=VEDHAK&am=299&cu=INR">Pay Now</a>
 </div>
-<div class="card">
-<h3>Best Sellers</h3>
-<p>Customer trusted premium products.</p>
-</div>
+
 </div>
 </section>
 
-<section class="section">
-<h2>About VEDHAK</h2>
-<p>VEDHAK is committed to delivering high-quality Home & Kitchen products designed for modern households. We focus on durability, style, and customer satisfaction.</p>
+<section class="section" id="contact">
+<h2>Contact Us</h2>
+<p>📞 Phone: +91 9601299855</p>
+<p>📧 Email: krupalu.96012@gmail.com.com</p>
 </section>
 
 <footer>
 © 2026 VEDHAK. All Rights Reserved.
 </footer>
 
-<!-- WhatsApp Button -->
-<a href="https://wa.me/91XXXXXXXXXX" class="whatsapp" target="_blank">💬</a>
+<a href="https://wa.me/919601299855" class="whatsapp" target="_blank">💬</a>
 
 </body>
 </html>
-
