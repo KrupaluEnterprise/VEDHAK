@@ -20,7 +20,6 @@ padding:15px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-flex-wrap:wrap;
 }
 
 .logo{
@@ -80,7 +79,6 @@ padding:10px;
 margin:8px 0;
 border-radius:8px;
 border:1px solid #ddd;
-font-size:14px;
 }
 
 .btn{
@@ -91,12 +89,7 @@ border:none;
 border-radius:30px;
 width:100%;
 margin-top:10px;
-font-size:15px;
 cursor:pointer;
-}
-
-.btn:hover{
-background:black;
 }
 
 .summary-box{
@@ -130,26 +123,13 @@ border-radius:50%;
 text-decoration:none;
 }
 
-.sticky-checkout{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-padding:10px;
-box-shadow:0 -2px 10px rgba(0,0,0,0.1);
-}
-
 @media(min-width:768px){
-
 .products{
 grid-template-columns:repeat(2,1fr);
 }
-
 .hero{
 height:70vh;
 }
-
 }
 
 </style>
@@ -197,13 +177,12 @@ Quantity:
 <input type="text" id="phone" placeholder="Mobile Number">
 <textarea id="address" placeholder="Full Address"></textarea>
 
-<button class="btn" onclick="generateSummary()">View Order Summary</button>
-
-<div class="summary-box" id="summaryBox"></div>
+<button class="btn" onclick="sendOrder()">Place Order on WhatsApp</button>
 
 <br>
 <a class="btn" href="upi://pay?pa=devyatkalathiya-1@okhdfcbank&pn=VEDHAK&cu=INR">Pay via UPI</a>
-<button class="btn" onclick="sendOrder()">I Have Paid - Send Order</button>
+
+<div class="summary-box" id="summaryBox"></div>
 
 </section>
 
@@ -215,54 +194,42 @@ Quantity:
 
 <script>
 
-function generateSummary(){
-
-var q1 = parseInt(document.getElementById("q1").value)||0;
-var q2 = parseInt(document.getElementById("q2").value)||0;
-
-var total = (q1*199)+(q2*299);
-
-if(total<=0){
-alert("Please select at least one product");
-return;
-}
-
-var summary="🛒 VEDHAK Order Summary\n\n";
-
-if(q1>0){
-summary+="Ceramic Spoon x "+q1+" = ₹"+(q1*199)+"\n";
-summary+="Image: https://images.unsplash.com/photo-1583778176476-4a8b02f4c44d\n\n";
-}
-
-if(q2>0){
-summary+="Kitchen Bowl x "+q2+" = ₹"+(q2*299)+"\n";
-summary+="Image: https://images.unsplash.com/photo-1604908176997-125f25cc6f3d\n\n";
-}
-
-summary+="Total: ₹"+total;
-
-document.getElementById("summaryBox").style.display="block";
-document.getElementById("summaryBox").innerText=summary;
-
-}
-
 function sendOrder(){
 
+var q1=parseInt(document.getElementById("q1").value)||0;
+var q2=parseInt(document.getElementById("q2").value)||0;
 var name=document.getElementById("name").value;
 var phone=document.getElementById("phone").value;
 var address=document.getElementById("address").value;
-var summary=document.getElementById("summaryBox").innerText;
+
+var total=(q1*199)+(q2*299);
+
+if(total<=0){
+alert("Please select product quantity");
+return;
+}
 
 if(name==""||phone==""||address==""){
 alert("Please fill all details");
 return;
 }
 
-var message=summary+
+var message="🛒 VEDHAK Order\n\n";
+
+if(q1>0){
+message+="Ceramic Spoon x "+q1+" = ₹"+(q1*199)+"\n";
+message+="Image: https://images.unsplash.com/photo-1583778176476-4a8b02f4c44d\n\n";
+}
+
+if(q2>0){
+message+="Kitchen Bowl x "+q2+" = ₹"+(q2*299)+"\n";
+message+="Image: https://images.unsplash.com/photo-1604908176997-125f25cc6f3d\n\n";
+}
+
+message+="Total: ₹"+total+
 "\n\nCustomer Name: "+name+
 "\nMobile: "+phone+
-"\nAddress: "+address+
-"\nPayment Status: Paid ✅";
+"\nAddress: "+address;
 
 var url="https://wa.me/919601299855?text="+encodeURIComponent(message);
 
